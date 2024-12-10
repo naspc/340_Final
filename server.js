@@ -79,3 +79,21 @@ app.get('/api/renters', (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+
+// API endpoint to create a new renter
+app.post('/api/renters', (req, res) => {
+  const { name, movie_id } = req.body; // Destructure the body
+
+  if (!name || !movie_id) {
+      return res.status(400).json({ error: 'Name and Movie ID are required' });
+  }
+
+  const sql = 'INSERT INTO Renter (name, movie_id) VALUES (?, ?)';
+  db.query(sql, [name, movie_id], (err, results) => {
+      if (err) {
+          return res.status(500).json({ error: 'Failed to create renter' });
+      }
+      res.status(201).json({ id: results.insertId, name, movie_id });
+  });
+});

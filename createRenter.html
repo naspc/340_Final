@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Renter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Create New Renter</h1>
+    </header>
+    
+    <main>
+        <form id="createRenterForm">
+            <label for="name">Renter Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="movie_id">Movie ID:</label>
+            <input type="number" id="movie_id" name="movie_id" required>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <div id="responseMessage"></div>
+    </main>
+
+    <script>
+        // Handle form submission via AJAX
+        document.getElementById('createRenterForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const movie_id = document.getElementById('movie_id').value;
+
+            const data = { name, movie_id };
+
+            try {
+                const response = await fetch('/api/renters', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+                document.getElementById('responseMessage').innerText = `Renter ${result.name} created successfully!`;
+
+            } catch (error) {
+                document.getElementById('responseMessage').innerText = 'Error creating renter. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>

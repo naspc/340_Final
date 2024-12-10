@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Company DB</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        .wrapper {
+            width: 70%;
+            margin: 0 auto;
+        }
+        table tr td:last-child a {
+            margin-right: 15px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Example of loading movie data dynamically
+            var movieData = [
+                { movie_id: 1, title: 'Movie 1', genre: 'Comedy', release_year: 2020, availability: 1, rent_date: '2020-01-01', return_date: '2020-02-01', renter_id: 1 },
+                { movie_id: 2, title: 'Movie 2', genre: 'Action', release_year: 2021, availability: 0, rent_date: '2021-02-01', return_date: '2021-03-01', renter_id: 2 }
+            ];
+
+            var renterData = [
+                { renter_id: 1, name: 'John Doe', movie_id: 1 },
+                { renter_id: 2, name: 'Jane Smith', movie_id: 2 }
+            ];
+
+            // Populate movie table
+            var movieTableBody = $('#movieTable tbody');
+            movieData.forEach(function(movie) {
+                var row = $('<tr></tr>');
+                row.append('<td>' + movie.movie_id + '</td>');
+                row.append('<td>' + movie.title + '</td>');
+                row.append('<td>' + movie.genre + '</td>');
+                row.append('<td>' + movie.release_year + '</td>');
+                row.append('<td>' + (movie.availability == 1 ? "Yes" : "No") + '</td>');
+                row.append('<td>' + movie.rent_date + '</td>');
+                row.append('<td>' + movie.return_date + '</td>');
+                row.append('<td><a href="viewRenter.html?movie_id=' + movie.movie_id + '" title="View Renter" data-toggle="tooltip"><span class="glyphicon glyphicon-eye-open"></span></a></td>');
+                movieTableBody.append(row);
+            });
+
+            // Populate renter info table
+            var renterTableBody = $('#renterTable tbody');
+            renterData.forEach(function(renter) {
+                var row = $('<tr></tr>');
+                row.append('<td>' + renter.renter_id + '</td>');
+                row.append('<td>' + renter.name + '</td>');
+                row.append('<td>' + renter.movie_id + '</td>');
+                row.append('<td><a href="updateRenter.html?renter_id=' + renter.renter_id + '" title="Update Record" data-toggle="tooltip"><span class="glyphicon glyphicon-pencil"></span></a><a href="deleteRenter.html?renter_id=' + renter.renter_id + '" title="Delete Record" data-toggle="tooltip"><span class="glyphicon glyphicon-trash"></span></a></td>');
+                renterTableBody.append(row);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header clearfix">
+                        <h2>Project CS 340 Movie Rental</h2>
+                        <p>In this website you can:
+                            <ol>
+                                <li>CREATE new renters</li>
+                                <li>RETRIEVE movies and who's renting them, movies that have actors in it born after 1989, many movies of each genre there are.</li>
+                                <li>UPDATE a renter's name</li>
+                                <li>DELETE renters</li>
+                            </ol>
+                        </p>
+                        <h2 class="pull-left">Movie Details</h2>
+                    </div>
+
+                    <table class="table table-bordered table-striped" id="movieTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Genre</th>
+                                <th>Release year</th>
+                                <th>Availability</th>
+                                <th>Date Rented</th>
+                                <th>Return Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Movie rows will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+
+                    <br> <h2>Renter Info</h2> <br>
+                    <table class="table table-bordered table-striped" id="renterTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>ID of rented movie</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Renter rows will be populated here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <a href="createRenter.html" class="btn btn-success pull-right">Add New Renter</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

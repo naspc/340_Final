@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Renter Info</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style type="text/css">
+        .wrapper {
+            width: 500px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-header">
+                        <h3>Update Record for Renter</h3>
+                    </div>
+                    <form id="updateForm">
+                        <div class="form-group">
+                            <label for="renterId">Renter ID</label>
+                            <input type="text" id="renterId" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control">
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                        <a href="index.html" class="btn btn-default">Cancel</a>
+                    </form>
+                </div>
+            </div>        
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var renterId = urlParams.get('renter_id');
+            // Fetch renter data using renterId
+            // For demo purposes, using static data
+            var renterData = { renter_id: 1, name: 'John Doe' };
+
+            if (renterData.renter_id) {
+                $('#renterId').val(renterData.renter_id);
+                $('#name').val(renterData.name);
+            }
+
+            $('#updateForm').submit(function(e) {
+                e.preventDefault();
+                // Handle form submission (update renter data via AJAX or similar)
+                alert('Renter updated successfully!');
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>

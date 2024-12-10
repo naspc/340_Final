@@ -1,20 +1,23 @@
 const express = require('express');
-const mysql = require('mysql2');
+const mysql = require('mysql');
 const app = express();
 const port = process.env.PORT || 3000;
 
 // Database connection setup
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root', // Use your database user
-  password: '', // Use your database password
-  database: 'your_database_name' // Use your database name
+  user: 'cs340_reedyai', // Use your database user
+  password: '9249', // Use your database password
+  database: 'cs340_rothq' // Use your actual database name
 });
 
-// Connect to the database
-db.connect(err => {
-  if (err) throw err;
-  console.log('Connected to the database!');
+// Establish the connection
+db.connect((err) => {
+  if (err) {
+    console.error('Error connecting to the database: ' + err.stack);
+    return;
+  }
+  console.log('Connected to the database as id ' + db.threadId);
 });
 
 // API endpoint to get cast for a movie

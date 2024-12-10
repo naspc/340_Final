@@ -2,13 +2,27 @@ const express = require('express');
 const mysql = require('mysql');
 const app = express();
 const port = process.env.PORT || 3000;
+const path = require('path');
+
+// Serve static files (HTML, CSS, JS)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Home route
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Other routes
+app.get('/viewRenter', (req, res) => {
+  res.sendFile(path.join(__dirname, 'viewRenter.html'));
+});
 
 // Database connection setup
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'cs340_reedyai', // Use your database user
-  password: '9249', // Use your database password
-  database: 'cs340_rothq' // Use your actual database name
+  user: 'cs340_reedyai', // Your DB username
+  password: '9249', // Your DB password
+  database: 'cs340_rothq' // Your actual DB name
 });
 
 // Establish the connection
@@ -60,9 +74,6 @@ app.get('/api/renters', (req, res) => {
     res.status(400).send('Movie ID is required');
   }
 });
-
-// Serve static files (HTML files)
-app.use(express.static('public'));
 
 // Start the server
 app.listen(port, () => {
